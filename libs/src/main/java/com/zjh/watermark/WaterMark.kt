@@ -1,7 +1,6 @@
 package com.zjh.watermark
 
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
@@ -97,8 +96,7 @@ class WaterMark(
         // 水印图片Bitmap
         val waterMarkImageBitmap = getWaterMarkBitmap(waterMarkImage)
         // 位置
-        val position = waterMarkImage.position
-        val padding: Pair<Float, Float> = when (position) {
+        val padding: Pair<Float, Float> = when (val position = waterMarkImage.position) {
             // 左上
             is WaterMarkPosition.LeftTop -> Pair(position.paddingLeft.dp, position.paddingTop.dp)
             // 左下
@@ -122,18 +120,6 @@ class WaterMark(
                 (originHeight - waterMarkImageBitmap.height).toFloat() / 2,
             )
         }
-        logD(
-            """
-
-            drawBitmap
-            width : $originWidth
-            height : $originHeight
-            waterMarkBitmap width : ${waterMarkImageBitmap.width}
-            waterMarkBitmap height : ${waterMarkImageBitmap.height}
-            position : $position
-            padding : $padding
-        """.trimIndent()
-        )
         // 画水印图片
         canvas.drawBitmap(waterMarkImageBitmap, padding.first, padding.second, null)
     }
@@ -148,8 +134,7 @@ class WaterMark(
         val bounds = Rect()
         paint.getTextBounds(text, 0, text.length, bounds)
         // 位置
-        val position = waterMarkText.position
-        val padding: Pair<Float, Float> = when (position) {
+        val padding: Pair<Float, Float> = when (val position = waterMarkText.position) {
             // 左上
             is WaterMarkPosition.LeftTop -> Pair(
                 position.paddingLeft.dp,
@@ -176,16 +161,6 @@ class WaterMark(
                 (originHeight + bounds.height()).toFloat() / 2,
             )
         }
-        logD(
-            """
-            
-            drawText
-            text : $text
-            textSize : ${waterMarkText.textSize} , toPx : ${waterMarkText.textSize.sp}
-            bounds : $bounds , width : ${bounds.width()} , height : ${bounds.height()}
-            position : $position
-        """.trimIndent()
-        )
         canvas.drawText(text, padding.first, padding.second, paint)
     }
 
