@@ -86,8 +86,6 @@ class WaterMark(
      * 加载到ImageView中
      */
     fun loadIntoImage(imageView: ImageView) {
-        // 测试注释
-        imageView.setImageBitmap(finalBitmap ?: originBitmap)
         imageView.setImageBitmap(finalBitmap ?: originBitmap)
     }
 
